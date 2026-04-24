@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ghtanachakra</title>
+<title>GHATNACHAKRA GK</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
     :root {
@@ -80,6 +80,8 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 .opt-btn.selected { background: var(--primary); border-color: var(--primary); color: white; font-weight: 600; }
 .opt-btn.correct-ans { background: #d1fae5; border-color: #059669; color: #065f46; font-weight: 700; cursor: not-allowed; }
 .opt-btn.wrong-ans { background: #fee2e2; border-color: #dc2626; color: #991b1b; font-weight: 700; cursor: not-allowed; }
+.opt-btn.correct-ans.not-selected { background: #d1fae5; border-color: #059669; color: #065f46; font-weight: 700; cursor: not-allowed; }
+
 .ans-feedback {
     margin-top: 12px; padding: 12px 16px; border-radius: 10px;
     font-size: 0.88rem; font-weight: 600; display: flex; align-items: center; gap: 8px;
@@ -133,7 +135,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 <body>
 
 <div class="app-header">
-    <h1 onclick="app.showHome()">Ghtanachakra</h1>
+    <h1 onclick="app.showHome()">GHATNACHAKRA GK</h1>
     <div id="timer" style="display:none;">20:00</div>
 </div>
 
@@ -186,13 +188,17 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 <script>
 const MASTER_DATA = {
     "Ancient History": ``,
-    
-    "Modern History": ``, "World History": ``, "Static": ``,
-    "Indian Geography": ``, "World Geography": ``, "Ecology": ``, "Polity": ``, "Economics": ``,
-    "Physics": ``, "Chemistry": ``, "Zoology": ``, "Botany": ``,
+    "Medieval History": ``,
+    "Modern History": ``,
+    "World History": ``,
+    "Static": ``,
+    "Indian Geography": ``,
+    "World Geography": ``,
+    "Ecology": ``,
+    "Polity": ``,
+    "Economics": ``,
+    "Physics": ``,
     "Miscellaneous": ``,
-    
-    
     "Mix Mock": ``
 };
 
@@ -382,11 +388,12 @@ const app = {
                 else if (l.startsWith('B.')) opts[1] = l.slice(2).trim();
                 else if (l.startsWith('C.')) opts[2] = l.slice(2).trim();
                 else if (l.startsWith('D.')) opts[3] = l.slice(2).trim();
+                else if (l.startsWith('E.')) opts[4] = l.slice(2).trim();
                 else if (l.startsWith('Correct Answer:')) ans = l.slice(15).trim().toUpperCase();
                 else if (l.startsWith('Exp:')) exp = l.slice(4).trim();
                 else qText += l + " ";
             });
-            return { q: qText.trim(), opts, correct: {'A':0,'B':1,'C':2,'D':3}[ans.charAt(0)], exp };
+            return { q: qText.trim(), opts, correct: {'A':0,'B':1,'C':2,'D':3,'E':4}[ans.charAt(0)], exp };
         });
     },
 
@@ -462,6 +469,7 @@ const app = {
         const isBookmarked = this.bookmarks.some(b => b.q === q.q);
         bmBtn.classList.toggle('active', isBookmarked);
         bmBtn.textContent = isBookmarked ? '★ SAVED' : '★ SAVE';
+
         const userAns = this.userAns[this.idx];
         const hasAnswered = userAns !== undefined;
 
@@ -471,13 +479,13 @@ const app = {
                 let suffix = '';
                 if (i === q.correct && i === userAns) {
                     cls = 'correct-ans locked';
-                    suffix = ' <span style="float:right;font-size:0.75rem;">✓ Correct!</span>';
+                    suffix = ' <span style="float:right">✓ Correct!</span>';
                 } else if (i === q.correct) {
                     cls = 'correct-ans locked';
-                    suffix = ' <span style="float:right;font-size:0.75rem;">✓ Correct Answer</span>';
+                    suffix = ' <span style="float:right">✓ Correct Answer</span>';
                 } else if (i === userAns) {
                     cls = 'wrong-ans locked';
-                    suffix = ' <span style="float:right;font-size:0.75rem;">✗ Your Answer</span>';
+                    suffix = ' <span style="float:right">✗ Your Answer</span>';
                 }
                 return `<button class="opt-btn ${cls}" disabled><b>${String.fromCharCode(65+i)}.</b> ${o}${suffix}</button>`;
             } else {
@@ -616,39 +624,18 @@ const app = {
 
         let printStyle = document.getElementById('__print_style__');
         if (!printStyle) { printStyle = document.createElement('style'); printStyle.id = '__print_style__'; document.head.appendChild(printStyle); }
-        printStyle.textContent = `@media print { @page { size: A4; margin: 18mm 15mm 18mm 15mm; } body { background: #fff !important; color: #000 !important; } .app-header { display: none !important; } .print-q-block { page-break-inside: avoid; break-inside: avoid; } .print-footer { page-break-before: avoid; } }`;
+        printStyle.textContent = `@media print { @page { size: A4; margin: 8mm 8mm 8mm 8mm; } body { background: #fff !important; color: #000 !important; } .app-header { display: none !important; } .print-q-block { page-break-inside: avoid; break-inside: avoid; } .print-footer { display: none !important; } }`;
 
         const sortOrder = { wrong: 0, skipped: 1, correct: 2 };
         const sortedRows = [...res.rows].sort((a, b) => sortOrder[a.statusClass] - sortOrder[b.statusClass]);
 
         let pdfHTML = `
         <div id="__pdf_root__" style="background:#fff;color:#000;font-family:'Inter',sans-serif;padding:0;margin:0;">
-            <div style="border:2.5px solid #000;padding:18px 22px 14px;margin-bottom:22px;">
-                <div style="text-align:center;border-bottom:1.5px solid #000;padding-bottom:10px;margin-bottom:12px;">
-                    <div style="font-size:11px;letter-spacing:3px;color:#111;font-weight:700;text-transform:uppercase;margin-bottom:4px;">THE SSC SCHOLARS OFFICIAL</div>
-                    <div style="font-size:22px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#003399;">MOCK TEST RESULT</div>
-                    <div style="font-size:12px;color:#111;font-weight:600;margin-top:4px;letter-spacing:1px;">PREVIOUS YEAR QUESTIONS</div>
-                </div>
-                <table style="width:100%;border-collapse:collapse;font-size:13px;color:#000;">
-                    <tr>
-                        <td style="padding:4px 8px;font-weight:bold;width:22%;">CHAPTER / TOPIC</td>
-                        <td style="padding:4px 8px;border-left:1px solid #999;font-weight:700;text-transform:uppercase;">${topicLabel}</td>
-                        <td style="padding:4px 8px;font-weight:bold;width:20%;border-left:1px solid #999;">SET</td>
-                        <td style="padding:4px 8px;border-left:1px solid #999;font-weight:700;">${setLabel}</td>
-                    </tr>
-                    <tr style="border-top:1px solid #999;">
-                        <td style="padding:4px 8px;font-weight:bold;">TOTAL QUESTIONS</td>
-                        <td style="padding:4px 8px;border-left:1px solid #999;font-weight:700;">${totalQs}</td>
-                        <td style="padding:4px 8px;font-weight:bold;border-left:1px solid #999;">DOWNLOADED ON</td>
-                        <td style="padding:4px 8px;border-left:1px solid #999;font-weight:600;">${time}</td>
-                    </tr>
-                </table>
-                <div style="margin-top:12px;display:flex;gap:10px;">
-                    <div style="flex:1;padding:8px 14px;background:#d4f5d4;border-left:4px solid #005500;font-size:13px;font-weight:700;color:#005500;">✓ Correct: ${res.r}</div>
-                    <div style="flex:1;padding:8px 14px;background:#ffd4d4;border-left:4px solid #aa0000;font-size:13px;font-weight:700;color:#aa0000;">✗ Wrong: ${res.w}</div>
-                    <div style="flex:1;padding:8px 14px;background:#f0f0f0;border-left:4px solid #555;font-size:13px;font-weight:700;color:#555;">– Skipped: ${res.s}</div>
-                    <div style="flex:1;padding:8px 14px;background:#d4eaff;border-left:4px solid #003399;font-size:13px;font-weight:700;color:#003399;">Score: ${res.finalScore.toFixed(2)}</div>
-                </div>
+            <div style="display:flex;gap:8px;margin-bottom:10px;">
+                <div style="flex:1;padding:6px 10px;background:#d4f5d4;border-left:4px solid #005500;font-size:12px;font-weight:700;color:#005500;">✓ Correct: ${res.r}</div>
+                <div style="flex:1;padding:6px 10px;background:#ffd4d4;border-left:4px solid #aa0000;font-size:12px;font-weight:700;color:#aa0000;">✗ Wrong: ${res.w}</div>
+                <div style="flex:1;padding:6px 10px;background:#f0f0f0;border-left:4px solid #555;font-size:12px;font-weight:700;color:#555;">– Skipped: ${res.s}</div>
+                <div style="flex:1;padding:6px 10px;background:#d4eaff;border-left:4px solid #003399;font-size:12px;font-weight:700;color:#003399;">Score: ${res.finalScore.toFixed(2)}</div>
             </div>
             <div style="display:flex;flex-direction:column;gap:0;">`;
 
@@ -659,7 +646,7 @@ const app = {
             const tagColor = statusClass === 'correct' ? '#005500' : statusClass === 'wrong' ? '#aa0000' : '#555';
 
             pdfHTML += `
-                <div class="print-q-block" style="page-break-inside:avoid;break-inside:avoid;border:1px solid #999;border-top:none;padding:12px 14px;${idx===0?'border-top:1px solid #999;':''}">
+                <div class="print-q-block" style="page-break-inside:avoid;break-inside:avoid;border:1px solid #999;border-top:none;padding:6px 10px;${idx===0?'border-top:1px solid #999;':''}">
                     <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
                         <span style="font-size:12px;font-weight:900;color:#000;white-space:nowrap;min-width:28px;">Q.${i+1}</span>
                         <span style="font-size:13.5px;font-weight:600;line-height:1.5;color:#000;flex:1;">${q.q}</span>
@@ -685,11 +672,6 @@ const app = {
         });
 
         pdfHTML += `</div>
-            <div class="print-footer" style="margin-top:28px;border-top:2px solid #000;padding-top:12px;text-align:center;page-break-inside:avoid;">
-                <div style="font-size:13px;font-weight:bold;letter-spacing:1px;color:#000;">THE SSC SCHOLARS OFFICIAL</div>
-                <div style="font-size:11px;color:#000;font-weight:600;margin-top:3px;">Join us on Telegram: <a href="https://t.me/thesscscholarsofficial" style="color:#0066cc;font-weight:700;">t.me/thesscscholarsofficial</a></div>
-                <div style="font-size:10px;color:#222;margin-top:4px;">Generated: ${time} &nbsp;|&nbsp; ${topicLabel} &nbsp;|&nbsp; ${setLabel}</div>
-            </div>
         </div>`;
 
         const screens = document.querySelectorAll('.screen, .app-header');
