@@ -35148,20 +35148,23 @@ const app = {
 
 
     pauseTest() {
-        if (this.paused) return;
-        this.paused = true;
-        clearInterval(this.timerInt);
-        document.getElementById('pause-overlay').classList.add('active');
-        document.getElementById('pause-btn').textContent = '▶ RESUME';
-        document.getElementById('pause-btn').onclick = () => this.resumeTest();
+        if (this.paused) {
+            this.paused = false;
+            document.getElementById('pause-overlay').classList.remove('active');
+            const btn = document.getElementById('pause-btn');
+            btn.textContent = '⏸ PAUSE';
+            btn.style.background = '#f59e0b';
+            this.startTimer();
+        } else {
+            this.paused = true;
+            clearInterval(this.timerInt);
+            document.getElementById('pause-overlay').classList.add('active');
+            const btn = document.getElementById('pause-btn');
+            btn.textContent = '▶ RESUME';
+            btn.style.background = '#059669';
+        }
     },
-    resumeTest() {
-        this.paused = false;
-        document.getElementById('pause-overlay').classList.remove('active');
-        document.getElementById('pause-btn').textContent = '⏸ PAUSE';
-        document.getElementById('pause-btn').onclick = () => this.pauseTest();
-        this.startTimer();
-    },
+    resumeTest() { this.pauseTest(); },
     startTimer() {
         clearInterval(this.timerInt);
         this.timerInt = setInterval(() => {
