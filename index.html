@@ -29,7 +29,13 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
     position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(2, 132, 199, 0.1);
 }
 .app-header h1 { font-family: 'Orbitron'; font-size: 0.85rem; color: var(--primary); letter-spacing: 2px; cursor: pointer; }
-#timer { font-family: 'Orbitron'; font-size: 1.1rem; color: #fff; background: var(--primary); padding: 6px 14px; border-radius: 8px; }
+#pause-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:9999; flex-direction:column; align-items:center; justify-content:center; gap:20px; }
+    #pause-overlay.active { display:flex; }
+    #pause-overlay h2 { color:#fff; font-family:Orbitron; font-size:1.4rem; letter-spacing:3px; margin:0; }
+    #pause-overlay p { color:#94a3b8; font-size:0.9rem; margin:0; }
+    #resume-btn { background:#0284c7; color:#fff; border:none; padding:14px 40px; border-radius:10px; font-family:Orbitron; font-size:1rem; font-weight:bold; cursor:pointer; }
+    #pause-btn { background:#f59e0b; color:#fff; border:none; padding:6px 14px; border-radius:8px; font-family:Orbitron; font-size:0.65rem; font-weight:bold; cursor:pointer; }
+    #timer { font-family: 'Orbitron'; font-size: 1.1rem; color: #fff; background: var(--primary); padding: 6px 14px; border-radius: 8px; }
 
 .screen { display: none; padding: 20px; max-width: 1000px; margin: 0 auto; }
 .screen.active { display: block; }
@@ -136,7 +142,12 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 
 <div class="app-header">
     <h1 onclick="app.showHome()">GHATNACHAKRA GK</h1>
-    <div id="timer" style="display:none;">20:00</div>
+    <div style="display:flex;align-items:center;gap:8px;"><div id="timer" style="display:none;">20:00</div><button id="pause-btn" onclick="app.pauseTest()" style="display:none;background:#f59e0b;color:#fff;border:none;padding:6px 12px;border-radius:8px;font-family:Orbitron;font-size:0.65rem;font-weight:bold;cursor:pointer;">⏸ PAUSE</button></div>
+<div id="pause-overlay">
+    <h2>⏸ PAUSED</h2>
+    <p>Your test is paused. Timer is stopped.</p>
+    <button id="resume-btn" onclick="app.resumeTest()">▶ RESUME TEST</button>
+</div>
 </div>
 
 <div class="screen active" id="screen-home">
@@ -157,7 +168,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 <div class="screen" id="screen-test">
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
         <button class="btn" style="background:#e0f2fe; color:#0284c7; border:1.5px solid #bae6fd; font-size:0.7rem; padding:8px 16px;" onclick="app.exitToHome()">&#127968; HOME</button>
-        <button class="btn" style="background:#f1f5f9; color:#475569; border:1.5px solid #cbd5e1; font-size:0.7rem; padding:8px 16px;" onclick="app.exitToSets()">&#8592; SETS</button>
+        <button class="btn" style="background:#4285f4; color:#fff; border:none; font-size:0.7rem; padding:8px 16px;" onclick="app.openGoogle()">🔍 GOOGLE</button>
         <div id="attempt-counter" style="margin-left:auto; display:flex; gap:8px; align-items:center;">
             <span id="counter-attempted" style="background:#d1fae5; color:#065f46; border:1.5px solid #6ee7b7; border-radius:8px; padding:6px 12px; font-size:0.72rem; font-weight:700; font-family:'Orbitron';">✓ 0</span>
             <span id="counter-unattempted" style="background:#fee2e2; color:#991b1b; border:1.5px solid #fca5a5; border-radius:8px; padding:6px 12px; font-size:0.72rem; font-weight:700; font-family:'Orbitron';">✗ 0</span>
@@ -35135,6 +35146,22 @@ const app = {
     next() { if (this.idx < this.testQs.length - 1) { this.idx++; this.renderQ(); } },
     prev() { if (this.idx > 0) { this.idx--; this.renderQ(); } },
 
+
+    pauseTest() {
+        if (this.paused) return;
+        this.paused = true;
+        clearInterval(this.timerInt);
+        document.getElementById('pause-overlay').classList.add('active');
+        document.getElementById('pause-btn').textContent = '▶ RESUME';
+        document.getElementById('pause-btn').onclick = () => this.resumeTest();
+    },
+    resumeTest() {
+        this.paused = false;
+        document.getElementById('pause-overlay').classList.remove('active');
+        document.getElementById('pause-btn').textContent = '⏸ PAUSE';
+        document.getElementById('pause-btn').onclick = () => this.pauseTest();
+        this.startTimer();
+    },
     startTimer() {
         clearInterval(this.timerInt);
         this.timerInt = setInterval(() => {
@@ -35307,6 +35334,14 @@ const app = {
             document.getElementById('timer').style.display = 'none';
             this.switchScreen('screen-sets');
         }
+    },
+
+    openGoogle() {
+        const q = this.testQs[this.idx];
+        if (!q) return;
+        const optsText = q.opts.map((o, i) => `${String.fromCharCode(65+i)}. ${o}`).join(' | ');
+        const text = `${q.q} | ${optsText}`;
+        window.open('https://www.google.com/search?q=' + encodeURIComponent(text), '_blank');
     },
 
     showHome() {
