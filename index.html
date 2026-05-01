@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SSC MOCK TEST PORTAL</title>
+<title>BPSC MOCK TEST PORTAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
     :root {
@@ -184,56 +184,111 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
 /* Statement blocks inside question */
 .stmt-block {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: flex-start;
-    background: #f0f7ff;
-    border-left: 3px solid var(--sky);
-    border-radius: 0 8px 8px 0;
-    padding: 8px 12px;
-    margin-bottom: 7px;
-    line-height: 1.6;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 100%);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    line-height: 1.65;
+    transition: background 0.15s;
+    box-shadow: 0 1px 4px rgba(2,132,199,0.07);
 }
-body.dark-theme .stmt-block { background: rgba(56,189,248,0.07); border-left-color: var(--sky); }
+.stmt-block:hover { background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%); }
+body.dark-theme .stmt-block { background: rgba(56,189,248,0.07); border-left-color: var(--sky); box-shadow: none; }
+body.dark-theme .stmt-block:hover { background: rgba(56,189,248,0.12); }
 .stmt-label {
     font-weight: 800;
     color: var(--primary);
     white-space: nowrap;
-    font-size: 0.82rem;
-    min-width: 80px;
-    padding-top: 1px;
+    font-size: 0.8rem;
+    min-width: 30px;
+    background: rgba(2,132,199,0.12);
+    border-radius: 6px;
+    padding: 2px 7px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    letter-spacing: 0.3px;
 }
-.stmt-text { font-size: 0.93rem; color: var(--text); }
+.stmt-text { font-size: 0.93rem; color: var(--text); flex: 1; }
 
 /* Match the Following table */
+.match-intro {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed var(--border);
+}
 .match-table {
     width: 100%;
-    border-collapse: collapse;
-    border-radius: 8px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
     overflow: hidden;
-    margin-top: 8px;
+    margin-top: 6px;
     font-size: 0.9rem;
+    box-shadow: 0 2px 10px rgba(2,132,199,0.08);
+    border: 2px solid #bfdbfe;
 }
 .match-table th {
-    padding: 8px 12px;
+    padding: 10px 16px;
     font-size: 0.78rem;
     text-align: left;
     font-weight: 800;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
-.match-table th:first-child { background: #dbeafe; color: #1d4ed8; border: 1px solid #bfdbfe; }
-.match-table th:last-child { background: #ede9fe; color: #6d28d9; border: 1px solid #ddd6fe; }
-.match-table td { padding: 7px 12px; border: 1px solid #e2e8f0; font-size: 0.88rem; vertical-align: top; line-height: 1.5; }
-.match-table tr:nth-child(odd) td:first-child { background: #f8faff; }
-.match-table tr:nth-child(even) td:first-child { background: #f0f7ff; }
-.match-table tr:nth-child(odd) td:last-child { background: #fdf8ff; }
-.match-table tr:nth-child(even) td:last-child { background: #faf5ff; }
-body.dark-theme .match-table th:first-child { background: rgba(56,189,248,0.15); color: #7dd3fc; border-color: rgba(56,189,248,0.2); }
-body.dark-theme .match-table th:last-child { background: rgba(167,139,250,0.15); color: #c4b5fd; border-color: rgba(167,139,250,0.2); }
-body.dark-theme .match-table td { border-color: #333; }
-body.dark-theme .match-table tr:nth-child(odd) td:first-child { background: rgba(56,189,248,0.04); }
-body.dark-theme .match-table tr:nth-child(even) td:first-child { background: rgba(56,189,248,0.08); }
-body.dark-theme .match-table tr:nth-child(odd) td:last-child { background: rgba(167,139,250,0.04); }
-body.dark-theme .match-table tr:nth-child(even) td:last-child { background: rgba(167,139,250,0.08); }
+.match-table th:first-child { background: linear-gradient(135deg,#1d4ed8,#3b82f6); color: #fff; }
+.match-table th:last-child { background: linear-gradient(135deg,#6d28d9,#8b5cf6); color: #fff; }
+.match-table td { 
+    padding: 10px 14px; 
+    border-top: 1px solid #e2e8f0; 
+    font-size: 0.88rem; 
+    vertical-align: middle; 
+    line-height: 1.55; 
+}
+.match-table td:first-child { 
+    background: #f0f7ff; 
+    border-right: 2px solid #bfdbfe;
+    font-weight: 500;
+    width: 50%;
+}
+.match-table td:last-child { 
+    background: #faf5ff; 
+    font-weight: 500;
+    width: 50%;
+}
+.match-table tr:hover td:first-child { background: #e0f2fe; }
+.match-table tr:hover td:last-child { background: #ede9fe; }
+.match-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 0.75rem;
+    margin-right: 6px;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+.match-table td:first-child .match-key { background: #1d4ed8; color: #fff; }
+.match-table td:last-child .match-key { background: #6d28d9; color: #fff; }
+body.dark-theme .match-table { border-color: rgba(56,189,248,0.25); }
+body.dark-theme .match-table th:first-child { background: linear-gradient(135deg,#1e3a8a,#1d4ed8); }
+body.dark-theme .match-table th:last-child { background: linear-gradient(135deg,#4c1d95,#6d28d9); }
+body.dark-theme .match-table td { border-top-color: #2a2a2a; }
+body.dark-theme .match-table td:first-child { background: rgba(56,189,248,0.06); border-right-color: rgba(56,189,248,0.2); }
+body.dark-theme .match-table td:last-child { background: rgba(167,139,250,0.06); }
+body.dark-theme .match-table tr:hover td:first-child { background: rgba(56,189,248,0.12); }
+body.dark-theme .match-table tr:hover td:last-child { background: rgba(167,139,250,0.12); }
+body.dark-theme .match-intro { border-bottom-color: #333; }
 
 /* ── Options – radio-style ── */
 .opt-btn {
@@ -35392,10 +35447,9 @@ const app = {
                 /^statement[\s\-]*(i+|\d+)\s*[:–\-]/i.test(l); // Statement I: text
 
             lines.forEach(l => {
-                if (l.startsWith('A.')) opts[0] = l.slice(2).trim();
-                else if (l.startsWith('B.')) opts[1] = l.slice(2).trim();
-                else if (l.startsWith('C.')) opts[2] = l.slice(2).trim();
-                else if (l.startsWith('D.')) opts[3] = l.slice(2).trim();
+                // Support A–F options (handles E/F as 5th/6th option)
+                const optMatch = l.match(/^([A-F])\.\s+([\s\S]+)/);
+                if (optMatch) { opts[optMatch[1].charCodeAt(0) - 65] = optMatch[2].trim(); }
                 else if (l.startsWith('Correct Answer:')) ans = l.slice(15).trim().toUpperCase();
                 else if (l.startsWith('Exp:')) exp = l.slice(4).trim();
                 else qLines.push(l);
@@ -35415,7 +35469,7 @@ const app = {
                 else qText += ' ' + l;
             });
 
-            return { q: qText.trim().replace(/^[-–—]\s*/, ''), opts, correct: {'A':0,'B':1,'C':2,'D':3}[ans.charAt(0)], exp };
+            return { q: qText.trim().replace(/^[-–—]\s*/, ''), opts, correct: ans.charAt(0).toUpperCase().charCodeAt(0) - 65, exp };
         });
     },
 
@@ -35511,6 +35565,187 @@ const app = {
         // Split on preserved newlines to get all lines
         const allLines = qText.split('\n').map(l => l.trim()).filter(l => l);
 
+        // --- Handle inline Match questions BEFORE single-line early return ---
+        if (/^\s*match\b/i.test(allLines[0]) || /correctly\s+match/i.test(allLines[0])) {
+            const fullText = allLines[0];
+            // Extract intro (everything before first A.), strip trailing dashes
+            // Strip intro of List-I items (either A/B/C/D or numbered 1/2/3/4)
+            const introText = fullText
+                .replace(/\s+(?:[A-D]|\d+)\.\s+.*/s, '')
+                .replace(/\s*[—–\-]+\s*$/, '')
+                .trim();
+
+            // Pattern: "A. X B. Y C. Z D. W — 1. P 2. Q 3. R 4. S [5. T]"
+            // List-I = A/B/C/D items; List-II = numbered items after the separating em/en-dash
+            // We find the LAST dash that is followed immediately by a digit (e.g. "— 1.") to split
+            const sepIdx = fullText.search(/[—–]\s*1\./);
+            if (sepIdx >= 0) {
+                const list1Text = fullText.slice(0, sepIdx);
+                const list2Text = fullText.slice(sepIdx).replace(/^[—–]\s*/, '');
+                const l1Pattern = /([A-D])\.\s+(.+?)(?=\s+[B-D]\.\s|\s*[—–]|\s*$)/g;
+                const l2Pattern = /(\d+)\.\s+(.+?)(?=\s+\d+\.\s|\s*$)/g;
+                const l1Items = [...list1Text.matchAll(l1Pattern)];
+                const l2Items = [...list2Text.matchAll(l2Pattern)];
+                // Try letter-based List-I (A/B/C/D), else fall back to number-based
+                const effectiveL1 = l1Items.length >= 2 ? l1Items
+                    : [...list1Text.matchAll(/(\d+)\.\s+(.+?)(?=\s+\d+\.\s|\s*[—–]|\s*$)/g)];
+                if (effectiveL1.length >= 2 && l2Items.length >= 2) {
+                    const maxLen = Math.max(effectiveL1.length, l2Items.length);
+                    let rows = '';
+                    for (let i = 0; i < maxLen; i++) {
+                        const a = effectiveL1[i], b = l2Items[i];
+                        rows += `<tr>
+                            <td>${a ? `<span class="match-key">${a[1]}.</span> ${a[2].trim()}` : ''}</td>
+                            <td>${b ? `<span class="match-key">${b[1]}.</span> ${b[2].trim()}` : ''}</td>
+                        </tr>`;
+                    }
+                    return `<div class="match-intro">${introText}</div>
+                    <table class="match-table">
+                        <thead><tr><th>📋 LIST I</th><th>📋 LIST II</th></tr></thead>
+                        <tbody>${rows}</tbody>
+                    </table>`;
+                }
+            }
+
+            // Pattern: A. Term — 1. Term B. Term — 2. Term (each pair has its own dash)
+            const dashPattern = /([A-D])\.\s+(.+?)\s*[—–-]\s*(\d+)\.\s+(.+?)(?=\s+[B-D]\.\s|\s*$)/g;
+            const dashMatches = [...fullText.matchAll(dashPattern)];
+
+            if (dashMatches.length >= 2) {
+                const rows = dashMatches.map(m =>
+                    `<tr>
+                        <td><span class="match-key">${m[1]}.</span> ${m[2].trim()}</td>
+                        <td><span class="match-key">${m[3]}.</span> ${m[4].trim()}</td>
+                    </tr>`
+                ).join('');
+                return `<div class="match-intro">${introText}</div>
+                <table class="match-table">
+                    <thead><tr><th>📋 LIST I</th><th>📋 LIST II</th></tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>`;
+            }
+
+            // Pattern: A. Term (1. Term) or A. Term (i) Term B. ...
+            const parenPattern = /([A-D])\.\s+(.+?)\s*\((\d+|i{1,4}v?|vi{0,3})\)\.?\s*([A-Za-z][^\n(]*?)(?=\s+[B-D]\.\s|\s*$)/gi;
+            const parenMatches = [...fullText.matchAll(parenPattern)];
+            if (parenMatches.length >= 2) {
+                const rows = parenMatches.map(m => {
+                    const leftVal = m[2].trim().replace(/\s*[—–\-]+\s*$/, '');
+                    return `<tr>
+                        <td><span class="match-key">${m[1]}.</span> ${leftVal}</td>
+                        <td><span class="match-key">${m[3]}.</span> ${m[4].trim()}</td>
+                    </tr>`;
+                }).join('');
+                return `<div class="match-intro">${introText}</div>
+                <table class="match-table">
+                    <thead><tr><th>📋 LIST I</th><th>📋 LIST II</th></tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>`;
+            }
+
+            // Fallback for match: just A. B. C. D. items with no number pairing — show as statement blocks
+            const justListI = /([A-D])\.\s+(.+?)(?=\s+[B-D]\.\s|\s*$)/g;
+            const listIOnly = [...fullText.matchAll(justListI)];
+            if (listIOnly.length >= 2) {
+                const stmtHtml = listIOnly.map(m =>
+                    `<div class="stmt-block"><span class="stmt-label">${m[1]}.</span><span class="stmt-text">${m[2].trim()}</span></div>`
+                ).join('');
+                return `<div style="margin-bottom:10px;line-height:1.7;">${introText}</div>${stmtHtml}`;
+            }
+        }
+
+        // --- Detect inline chronological/arrange/order questions with A. B. C. D. items ---
+        // e.g. "Put in chronological order: A. Formation ... B. Arrival ... C. ... D. ..."
+        if (allLines.length <= 1) {
+            const fullText = allLines[0];
+            const isOrderQ = /chronological|arrange|correct\s+order|following\s+order|order\s+of/i.test(fullText);
+            if (isOrderQ && /\bA\.\s+\S.+\bB\.\s+\S/.test(fullText)) {
+                const introText = fullText.replace(/\s+A\.\s+.*/s, '').trim();
+                const itemPattern = /([A-D])\.\s+(.+?)(?=\s+[B-D]\.\s|\s*$)/g;
+                const items = [...fullText.matchAll(itemPattern)];
+                if (items.length >= 2) {
+                    const stmtHtml = items.map(m =>
+                        `<div class="stmt-block"><span class="stmt-label">${m[1]}.</span><span class="stmt-text">${m[2].trim()}</span></div>`
+                    ).join('');
+                    return `<div style="margin-bottom:10px;line-height:1.7;">${introText}</div>${stmtHtml}`;
+                }
+            }
+        }
+
+        // --- Handle ALL inline single-line statement formats ---
+        if (allLines.length <= 1) {
+            const fullText = allLines[0];
+
+            // Format 0: Assertion (A) / Reason (R) inline
+            // Handles: "Given below... Assertion (A): X. Reason (R): Y."
+            // Split at "Assertion (A):" that is NOT followed by "and" (to skip intro like "labelled as Assertion (A) and the other")
+            const arSplit = fullText.match(/^(.*?)\bAssertion\s*\(A\)\s*[:–\-](?!\s*and\b)(.+?)\bReason\s*\(R\)\s*[:–\-]\s*(.+?)$/si);
+            if (arSplit) {
+                const introText = arSplit[1].trim();
+                const aText = arSplit[2].trim().replace(/\.\s*$/, '');
+                const rText = arSplit[3].trim().replace(/\.\s*$/, '');
+                const stmtHtml =
+                    '<div class="stmt-block"><span class="stmt-label">A</span><span class="stmt-text"><b>Assertion:</b> ' + aText + '</span></div>' +
+                    '<div class="stmt-block"><span class="stmt-label">R</span><span class="stmt-text"><b>Reason:</b> ' + rText + '</span></div>';
+                return introText
+                    ? '<div style="margin-bottom:10px;line-height:1.7;">' + introText + '</div>' + stmtHtml
+                    : stmtHtml;
+            }
+
+            // Format 1: Roman numerals inline — "I. Text II. Text III. Text IV. Text"
+            const romanInlineTest = /\b(I{1,3}V?|IV|VI{0,3}|IX|XI{0,3})\.\s+\S.+\b(I{1,3}V?|IV|VI{0,3}|IX|XI{0,3})\.\s+\S/;
+            if (romanInlineTest.test(fullText)) {
+                const romanPattern = /(I{1,3}V?|IV|VI{0,3}|IX|XI{0,3})\.\s+(.+?)(?=\s+(?:I{1,3}V?|IV|VI{0,3}|IX|XI{0,3})\.\s|\s*$)/g;
+                const matches = [...fullText.matchAll(romanPattern)];
+                if (matches.length >= 2) {
+                    const introText = fullText.replace(/\s*\b(I{1,3}V?|IV|VI{0,3}|IX|XI{0,3})\.\s+.*/s, '').trim();
+                    const stmtHtml = matches.map(m =>
+                        `<div class="stmt-block"><span class="stmt-label">${m[1]}.</span><span class="stmt-text">${m[2].trim()}</span></div>`
+                    ).join('');
+                    return `<div style="margin-bottom:10px;line-height:1.7;">${introText}</div>${stmtHtml}`;
+                }
+            }
+
+            // Format 2a: Roman numerals in parens inline — "(i) Text (ii) Text (iii) Text"
+            if (/\(i{1,4}v?\)\s+\S.+\(i{1,4}v?\)\s+\S/i.test(fullText)) {
+                const romanParenPat = /\((i{1,4}v?|vi{0,3}|ix)\)\s+(.+?)(?=\s+\([ivx]+\)|\s*$)/gi;
+                const rpMatches = [...fullText.matchAll(romanParenPat)];
+                if (rpMatches.length >= 2) {
+                    const introText = fullText.replace(/\s*\([ivx]+\)\s+.*/si, '').trim();
+                    const stmtHtml = rpMatches.map(m =>
+                        `<div class="stmt-block"><span class="stmt-label">(${m[1].toLowerCase()})</span><span class="stmt-text">${m[2].trim()}</span></div>`
+                    ).join('');
+                    return `<div style="margin-bottom:10px;line-height:1.7;">${introText}</div>${stmtHtml}`;
+                }
+            }
+
+            // Format 2b: Lowercase paren inline — "(a) Text (b) Text (c) Text"
+            if (/\(([a-d])\)\s+\S.+\([a-d]\)\s+\S/.test(fullText)) {
+                const parenPattern = /\(([a-d])\)\s+(.+?)(?=\s+\([a-d]\)|\s*$)/gi;
+                const matches = [...fullText.matchAll(parenPattern)];
+                if (matches.length >= 2) {
+                    const introText = fullText.replace(/\s*\([a-d]\)\s+.*/si, '').trim();
+                    const stmtHtml = matches.map(m =>
+                        `<div class="stmt-block"><span class="stmt-label">(${m[1]})</span><span class="stmt-text">${m[2].trim()}</span></div>`
+                    ).join('');
+                    return `<div style="margin-bottom:10px;line-height:1.7;">${introText}</div>${stmtHtml}`;
+                }
+            }
+
+            // Format 3: Numbered inline — "1. Text 2. Text 3. Text"
+            if (/\b1\.\s+\S.+\b2\.\s+\S/.test(fullText)) {
+                const stmtPattern = /(\d+)\.\s+(.+?)(?=\s+\d+\.\s|\s*$)/g;
+                const matches = [...fullText.matchAll(stmtPattern)];
+                if (matches.length >= 2) {
+                    const introText = fullText.replace(/\s*\b1\.\s+.*/s, '').trim();
+                    const stmtHtml = matches.map(m =>
+                        `<div class="stmt-block"><span class="stmt-label">${m[1]}.</span><span class="stmt-text">${m[2].trim()}</span></div>`
+                    ).join('');
+                    return `<div style="margin-bottom:10px;line-height:1.7;">${introText}</div>${stmtHtml}`;
+                }
+            }
+        }
+
         if (allLines.length <= 1) {
             // Single line – no sub-statements, just return as-is
             return qText;
@@ -35527,18 +35762,19 @@ const app = {
         const isNumberStmt  = l => /^\(\d+\)\s*\S/.test(l);             // (1)(2)
         const isCapStmt     = l => /^[A-Z]\)\s*\S/.test(l);             // A) B) C)
         const isRomanClose  = l => /^I{1,4}V?\)\s*\S/i.test(l);         // I) II) III)
+        const isRomanDot    = l => /^(?:I{1,4}V?|IV|VI{0,3}|IX|XI{0,3})\.\s*\S/.test(l); // I. II. III. IV.
         const isNamedStmt   = l => /^statement[\s\-]*(i+|\d+)\s*[:–\-]/i.test(l);
         const isListI       = l => /^list[\s\-]*i(?!i)/i.test(l);
         const isListII      = l => /^list[\s\-]*ii/i.test(l);
 
-        const isAnyStmt = l => isLetterStmt(l) || isRomanParens(l) || isRomanStmt(l) || isNumberStmt(l) || isCapStmt(l) || isRomanClose(l) || isNamedStmt(l);
+        const isAnyStmt = l => isLetterStmt(l) || isRomanParens(l) || isRomanStmt(l) || isNumberStmt(l) || isCapStmt(l) || isRomanClose(l) || isRomanDot(l) || isNamedStmt(l);
         const stmtLines = rest.filter(l => isAnyStmt(l));
         const hasListFormat = rest.some(l => isListI(l)) && rest.some(l => isListII(l));
         // Plain sentence list: multiple lines, none with markers — treat each as a numbered statement
         const isPlainList = stmtLines.length === 0 && rest.length > 1 && rest.every(l => l.length > 8);
 
-        // --- Match the Following / List I – List II ---
-        if (hasListFormat || /match the following/i.test(intro)) {
+        // --- Match the Following: multi-line List-I / List-II format ---
+        if (hasListFormat || /^\s*match\b/i.test(intro) || /correctly\s+match/i.test(intro)) {
             const list1 = [], list2 = [];
             let in1 = false, in2 = false, extraIntro = '';
             rest.forEach(l => {
@@ -35552,17 +35788,24 @@ const app = {
                 const maxLen = Math.max(list1.length, list2.length);
                 let rows = '';
                 for (let i = 0; i < maxLen; i++) {
-                    rows += `<tr><td>${list1[i] || ''}</td><td>${list2[i] || ''}</td></tr>`;
+                    const l1 = list1[i] || '';
+                    const l2 = list2[i] || '';
+                    const l1m = l1.match(/^([A-D][\.\ ]?\s*)(.*)/);
+                    const l2m = l2.match(/^(\d+[\.\)]?\s*)(.*)/);
+                    rows += `<tr>
+                        <td><span class="match-key">${l1m ? l1m[1].trim() : ''}</span>${l1m ? l1m[2].trim() : l1}</td>
+                        <td><span class="match-key">${l2m ? l2m[1].trim() : ''}</span>${l2m ? l2m[2].trim() : l2}</td>
+                    </tr>`;
                 }
-                return `<div style="margin-bottom:8px;line-height:1.7;">${intro}${extraIntro}</div>
+                return `<div class="match-intro">${intro}${extraIntro}</div>
                 <table class="match-table">
-                    <thead><tr><th>LIST I</th><th>LIST II</th></tr></thead>
+                    <thead><tr><th>📋 LIST I</th><th>📋 LIST II</th></tr></thead>
                     <tbody>${rows}</tbody>
                 </table>`;
             }
         }
 
-        // --- Named Statement I / Statement II ---
+                // --- Named Statement I / Statement II ---
         if (stmtLines.length > 0 && stmtLines.every(l => isNamedStmt(l))) {
             const stmtHtml = stmtLines.map(s => {
                 const m = s.match(/^(statement[\s\-]*(?:i+|\d+)\s*[:–\-]?\s*)(.*)/is);
@@ -35893,7 +36136,7 @@ const app = {
     openGemini() {
         const q = this.testQs[this.idx];
         if (!q) return;
-        const optLetters = ['A', 'B', 'C', 'D'];
+        const optLetters = ['A', 'B', 'C', 'D', 'E', 'F'];
         const optsText = q.opts.map((o, i) => `${optLetters[i]}. ${o}`).join(' | ');
         const text = `${q.q} | ${optsText}`;
         const url = 'https://www.google.com/search?q=' + encodeURIComponent(text);
